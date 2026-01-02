@@ -42,4 +42,4 @@ jobs:
                 # uses: oxsecurity/ox-security-scan@5113dd40ecb43b51047ccfeda629ce403687f566
                 uses: oxsecurity/ox-security-scan@1.0.0
                 env:
-                    OX_API_KEY: ${{secrets.OX_API_KEY}}
+                    ox_api_key: ${{secrets.OX_API_KEY}}

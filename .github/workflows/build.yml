@@ -1,5 +1,8 @@
-name: "Manual build and Scan"
-on: workflow_dispatch
+name: Aikido Release Gated Scan
+on:
+  push:
+    branches:
+      - main
 
 jobs:
     build:
@@ -13,7 +16,7 @@ jobs:
             -   name: Set up Node.js
                 uses: actions/setup-node@v3
                 with:
-                  node-version: '22'
+                    node-version: '22'
             -   name: Build with Maven
                 run: mvn --no-transfer-progress verify
             -   name: Install Aikido CI API Client

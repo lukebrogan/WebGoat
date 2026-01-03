@@ -10,11 +10,14 @@ jobs:
                 uses: ./.github/actions/java-setup
                 with:
                     cache: 'maven'
+            -   name: Set up Node.js
+                uses: actions/setup-node@v3
+                with:
+                  node-version: '22'
             -   name: Build with Maven
                 run: mvn --no-transfer-progress verify
+            -   name: Install Aikido CI API Client
+                run: npm install --global @aikidosec/ci-api-client
             -   name: aikido-scanner
-                # You may pin to the exact commit or the version.
-                # uses: gusfune/aikido-scanner@26a22e15a650c9077d7a9f46cf4079110101a1c4
-                uses: gusfune/aikido-scanner@1.0.19
-                with:
-                 api_key: ${{secrets.API_KEY}}
+            -   name: Run Aikido Scan
+                run: aikido-api-client scan-release ${{ github.event.repository.name }} $GITHUB_SHA --apikey ${{ secrets.AIKIDO_CLIENT_API_KEY }} --fail-on-sast-scan --fail-on-iac-scan --fail-on-secrets-scan
